@@ -21,3 +21,20 @@ export async function getAllNotes(req, res) {
         console.error("Error in getAllNotes:", error.message);
   }
 }
+
+export async function getUserNotes(req, res) {
+  try {
+    const { userId } = req.params;
+
+    const notes = await Notes.find({ userId }).populate("userId", "name email role").sort({ createdAt: -1 });
+
+    return res.status(200).json({
+        count: notes.length,
+        notes
+    });
+
+  } catch (error) {
+      res.status(500).json({ message: "Internal server error" });
+      console.error("Error in getUserNotes:", error.message);
+  }
+}
