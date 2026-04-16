@@ -18,7 +18,7 @@ export async function authLogin(req, res) {
                 return res.status(401).json({message: "Invalid password!!"})
             };
 
-            tokenAndCookies(user._id, res);
+            tokenAndCookies(user, res);
             return res.status(200).json({
                 message: "User logged in successfully!!",
                 user: user.email
@@ -32,7 +32,7 @@ export async function authLogin(req, res) {
             password: hashPassword
         });
 
-        tokenAndCookies(newUser._id, res);
+        tokenAndCookies(newUser, res);
         return res.status(201).json({
             message: "New user created successfully!!",
             user: newUser.email

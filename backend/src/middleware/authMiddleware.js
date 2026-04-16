@@ -18,8 +18,10 @@ const authMiddleware = async (req, res, next) => {
             return res.status(401).json({ message: "Invalid token" }); 
         };
 
-        req.userId = decoded.userId;
-        req.role = decoded.role;
+        req.user = {
+            id: decoded.userId,
+            role: decoded.role
+        };
         next();
 
     } catch (error) {
