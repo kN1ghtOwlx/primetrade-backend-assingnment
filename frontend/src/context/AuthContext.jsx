@@ -25,7 +25,7 @@ export function AuthProvider({ children }) {
   const login = async (email, password) => {
     try {
       await api.post('/auth/login', { email, password })
-      const { data } = await api.get('/auth/me')
+      localStorage.setItem("token", data.token)
       setUser(data.user)
     } catch (err) {
       throw err
@@ -34,7 +34,8 @@ export function AuthProvider({ children }) {
 
   const logout = async () => {
     try {
-      await api.post('/auth/logout')
+      await api.post('/auth/logout');
+      localStorage.removeItem("token");
     } finally {
       setUser(null)
     }

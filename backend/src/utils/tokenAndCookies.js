@@ -14,14 +14,12 @@ export const getCookieOptions = () => {
 
 const tokenAndCookies = (user, res) => {
     const token = jwt.sign(
-        { userId: user._id, role: user.role },
-        process.env.JWT_SECRET,
-        { expiresIn: "7d" }
+      { userId: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
     );
-
     res.cookie("jwt", token, getCookieOptions());
-
     return token;
-};
+  };
 
 export default tokenAndCookies;

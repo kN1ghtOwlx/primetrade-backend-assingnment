@@ -19,15 +19,11 @@ export async function authLogin(req, res) {
                 return res.status(401).json({ message: "Invalid password!!" });
             }
 
-            tokenAndCookies(user, res);
-
+            const token = tokenAndCookies(user, res);
             return res.status(200).json({
-                message: "User logged in successfully!!",
-                user: {
-                    id: user._id,
-                    email: user.email,
-                    role: user.role
-                }
+              message: "User logged in successfully!!",
+              token,
+              user: { id: user._id, email: user.email, role: user.role }
             });
         }
 
