@@ -1,4 +1,5 @@
 import Notes from "../models/Notes.js";
+import User from "../models/User.js";
 
 export async function getAllNotes(req, res) {
   try {
@@ -37,4 +38,47 @@ export async function getUserNotes(req, res) {
       res.status(500).json({ message: "Internal server error" });
       console.error("Error in getUserNotes:", error.message);
   }
+};
+
+export async function getAllUsers(req, res) {
+    try {
+        const users = await User.find().select("-password");
+
+        return res.status(200).json({
+          count: users.length,
+          users
+    });
+
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error" });
+        console.error("Error in getAllUsers:", error.message);
+    }
+};
+
+export async function makeAdmin(req, res) {
+    try {
+        const { userId } = req.params;
+
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        user.role = "admin";
+        await user.save();
+
+        return res.status(200).json({
+            message: "User promoted to admin successfully",
+            user: {
+                id: user._id,
+                email: user.email,
+                role: user.role
+            }
+        });
+
+    } catch (error) {
+        res.status(500).json({ message: "Internal server error" });
+        console.error("Error in makeAdmin:", error.message);
+    }
 }

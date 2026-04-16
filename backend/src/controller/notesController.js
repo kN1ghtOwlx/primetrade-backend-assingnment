@@ -93,7 +93,29 @@ export async function updateNote(req, res) {
         });
       
     } catch (error) {
-          console.error("Error in updateNote:", error.message);
-        res.status(500).json({ message: "Internal server error" });
+            console.error("Error in updateNote:", error.message);
+            res.status(500).json({ message: "Internal server error" });
     }
-}
+};
+
+export async function getNoteById(req, res) {
+    try {
+        const note = await Notes.findById(req.params.id);
+  
+        if (!note) {
+            return res.status(404).json({ message: "Note not found" });
+        }
+  
+        if (
+            note.userId.toString() !== req.user.id &&
+            req.user.role !== "admin"
+        ) {
+            return res.status(403).json({ message: "Not allowed" });
+        }
+  
+        res.status(200).json(note);
+    } catch (error) {
+            console.error("Error in getNoteById:", error.message);
+            res.status(500).json({ message: "Internal server error" });
+    }
+  }
