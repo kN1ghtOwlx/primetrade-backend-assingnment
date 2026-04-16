@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: 'https://primetrade-backend-assingnment.onrender.com/api',
   withCredentials: true
 })
 
