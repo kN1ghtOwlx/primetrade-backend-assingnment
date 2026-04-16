@@ -7,24 +7,10 @@ import adminRoutes from "./routes/adminRoutes.js"
 
 const app = express();
 
-const allowedOrigins = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    process.env.FRONTEND_URL
-].filter(Boolean);
-
 app.set("trust proxy", 1);
 app.use(
     cors({
-        origin: function (origin, callback) {
-            if (!origin) return callback(null, true);
-
-            if (allowedOrigins.includes(origin)) {
-                return callback(null, true);
-            } else {
-                return callback(new Error("Not allowed by CORS"));
-            }
-        },
+        origin: process.env.FRONTEND_URL,
         credentials: true
     })
 );
