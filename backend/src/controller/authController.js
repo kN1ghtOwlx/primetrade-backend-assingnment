@@ -34,15 +34,11 @@ export async function authLogin(req, res) {
             password: hashPassword
         });
 
-        tokenAndCookies(newUser, res);
-
+        const token = tokenAndCookies(newUser, res);
         return res.status(201).json({
-            message: "New user created successfully!!",
-            user: {
-                id: newUser._id,
-                email: newUser.email,
-                role: newUser.role
-            }
+          message: "New user created successfully!!",
+          token,  // add this
+          user: { id: newUser._id, email: newUser.email, role: newUser.role }
         });
     } catch (error) {
         res.status(500).json({ message: "Internal Server error" });
