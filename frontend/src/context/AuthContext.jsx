@@ -3,7 +3,7 @@ import api from '../api/client'
 
 const AuthContext = createContext(null)
 
-export async function AuthProvider({ children }) {
+export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
 
@@ -19,22 +19,18 @@ export async function AuthProvider({ children }) {
   }
 
   useEffect(() => {
-    const init = async () => {
-      try {
-        await loadUser()
-      } catch {
-        setUser(null)
-        setLoading(false)
-      }
-    }
-  
-    init()
+    loadUser()
   }, [])
 
-  const { data } = await api.post('/auth/login', { email, password })
-  const me = await api.get('/auth/me')
-  setUser(me.data.user)
-  setLoading(false)
+  const login = async (email, password) => {
+    try {
+      await api.post('/auth/login', { email, password })
+      const { data } = await api.get('/auth/me')
+      setUser(data.user)
+    } catch (err) {
+      throw err
+    }
+  }
 
   const logout = async () => {
     try {
