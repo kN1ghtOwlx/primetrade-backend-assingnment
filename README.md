@@ -107,6 +107,11 @@ http://localhost:5173
 - `GET /api/admin/user/:userId`
 - `PUT /api/admin/set-role/:userId`
 
+## Postman Workspace Link
+```bash
+https://www.postman.com/vinayak03-2003-1730521/workspace/primetrade-backend-assignment
+```
+
 ## Local Cookie Fix
 
 For local development, the JWT cookie must use:
@@ -187,11 +192,6 @@ npm run build
 ### Output Directory
 ```bash
 dist
-```
-
-### Environment Variables
-```env
-VITE_API_URL=https://your-backend-domain.onrender.com/api
 ```
 
 ## Before Deploying
