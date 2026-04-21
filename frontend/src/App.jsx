@@ -10,7 +10,7 @@ import AdminOnlyRoute from './components/AdminOnlyRoute'
 
 function RedirectHome() {
   const { user, loading } = useAuth()
-  if (loading) return <div className="flex min-h-screen items-center justify-center text-sm text-slate-500">Loading...</div>
+  if (loading) return <div className="flex min-h-screen items-center justify-center text-sm text-slate-500">Loading Database...</div>
   if (!user) return <Navigate to="/login" replace />
   return <Navigate to="/" replace />
 }

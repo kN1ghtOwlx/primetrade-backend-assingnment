@@ -72,10 +72,6 @@ cd frontend
 npm install
 ```
 
-### Create `.env`
-```env
-VITE_API_URL=http://localhost:3000/api
-```
 
 ### Run frontend locally
 ```bash
@@ -86,6 +82,10 @@ Frontend will run on:
 ```bash
 http://localhost:5173
 ```
+
+## Default Admin Login:
+- email: admin@gmail.com
+- password: admin@123
 
 ## Important Backend Endpoints
 
